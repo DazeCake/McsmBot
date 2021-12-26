@@ -16,5 +16,17 @@ repositories {
 }
 
 dependencies{
-    implementation("org.yaml:snakeyaml:1.30")
+    implementation("com.google.code.gson:gson:2.8.9")
+}
+tasks.create("buildJarToEnv",Jar::class){
+    dependsOn("buildPlugin")
+    doLast{
+        val buildPluginTask = tasks.getByName("buildPlugin",Jar::class)
+        val buildPluginFile = buildPluginTask.archiveFile.get().asFile
+        project.buildDir.resolve("D:\\MiraiProjects\\mcl-1.2.2\\plugins").also {
+            it.mkdirs()
+        }.resolve("McsmBot-0.0.1.mirai.jar").let {
+            buildPluginFile.copyTo(it,true)
+        }
+    }
 }

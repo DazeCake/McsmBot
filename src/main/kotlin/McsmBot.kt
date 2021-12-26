@@ -1,6 +1,6 @@
 package moe.dazecake
 
-import net.mamoe.mirai.console.extension.PluginComponentStorage
+import moe.dazecake.utils.ConfigValidator
 import net.mamoe.mirai.console.plugin.jvm.JvmPluginDescription
 import net.mamoe.mirai.console.plugin.jvm.KotlinPlugin
 import net.mamoe.mirai.utils.info
@@ -16,8 +16,10 @@ object McsmBot : KotlinPlugin(
     }
 ) {
     override fun onEnable() {
-        logger.info("[McsmBot]: 读取配置中...")
+        logger.info { "读取配置中..." }
         McsmBotConfig.reload()
-        logger.info { "[McsmBot]: 配置读取完成,插件已加载!" }
+//      "服务器连接验证"
+        ConfigValidator().verify(McsmBotConfig)
+
     }
 }
