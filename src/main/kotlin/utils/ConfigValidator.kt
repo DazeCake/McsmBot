@@ -21,7 +21,7 @@ class ConfigValidator {
                 .build()
             OkHttpClient().newCall(request).enqueue(object : Callback {
                 override fun onFailure(call: Call, e: IOException) {
-                    McsmBot.logger.warning { "服务器连接检查失败,请修正配置文件或检查面板连接参数!" }
+                    McsmBot.logger.error { "出现网络问题,服务器连接检查失败!" }
                 }
 
                 override fun onResponse(call: Call, response: Response) {
