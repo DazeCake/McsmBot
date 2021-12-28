@@ -39,6 +39,8 @@ class ConfigValidator {
                     }
                 }
             })
+        } else {
+            McsmBot.logger.error { "配置文件出错,请修正配置文件或检查面板连接参数!" }
         }
     }
 }
