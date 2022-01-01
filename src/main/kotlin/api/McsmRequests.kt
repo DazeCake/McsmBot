@@ -4,6 +4,7 @@ import com.google.gson.Gson
 import kotlinx.coroutines.runBlocking
 import moe.dazecake.McsmBot
 import moe.dazecake.McsmBotConfig
+import moe.dazecake.http.HttpRequests
 import net.mamoe.mirai.contact.Group
 import net.mamoe.mirai.utils.info
 import net.mamoe.mirai.utils.warning
@@ -12,6 +13,7 @@ import java.io.IOException
 
 object McsmRequests {
     private val config = McsmBotConfig
+    private val httpRequests = HttpRequests()
 
     fun getStatus(group: Group, serverName: String = config.ServerName) {
 
@@ -43,4 +45,39 @@ object McsmRequests {
         })
     }
 
+    fun openServer(group: Group, serverName: String = config.ServerName) {
+        httpRequests.get(
+            group, "${config.McsmIP}api/start_server/${serverName}?apikey=${config.APIkey}",
+            """
+                成功开启服务器
+            """.trimIndent(),
+            """
+                开启服务器失败
+            """.trimIndent()
+        )
+    }
+
+    fun closeServer(group: Group, serverName: String = config.ServerName) {
+        httpRequests.get(
+            group,"${config.McsmIP}api/stop_server/${serverName}?apikey=${config.APIkey}",
+            """
+                成功关闭服务器
+            """.trimIndent(),
+            """
+                服务器未能成功关闭
+            """.trimIndent()
+        )
+    }
+
+    fun restartServer(group: Group, serverName: String = config.ServerName) {
+        httpRequests.get(
+            group,"${config.McsmIP}api/restart_server/${serverName}?apikey=${config.APIkey}",
+            """
+                成功重启服务器
+            """.trimIndent(),
+            """
+                服务器未能成功重启
+            """.trimIndent()
+        )
+    }
 }

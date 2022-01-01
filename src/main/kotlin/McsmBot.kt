@@ -20,7 +20,7 @@ object McsmBot : KotlinPlugin(
         logger.info { "读取配置中..." }
         McsmBotConfig.reload()
 //      "服务器连接验证"
-        ConfigValidator().verify(McsmBotConfig)
+//        ConfigValidator().verify(McsmBotConfig)
         McsmBotCommand.register()
 
     }
